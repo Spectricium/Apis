@@ -1,3 +1,4 @@
+function Command()
 if Input == "/Speed" then
   if Value == "" then
   warn("Value Its Empty Need A Value")
@@ -22,7 +23,6 @@ if Input == "/Health" then
     game.Players.LocalPlayer.Character.Humanoid.Health = Value
   end
   end
-
 if Input == "/MaxHealth" then
   if Value == "" then
   warn("Value Its Empty Need A Value")
@@ -30,3 +30,4 @@ if Input == "/MaxHealth" then
     game.Players.LocalPlayer.Character.Humanoid.MaxHealth = Value
   end
   end
+end
