@@ -1,33 +1,186 @@
-function Command()
-if Input == "/Speed" then
-  if Value == "" then
-  warn("Value Its Empty Need A Value")
-    else
-    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
-  end
-  end
-if Input == "/Jump" then
-  if Value == "" then
-  warn("Value Its Empty Need A Value")
-    else
-    game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
-  end
-  end
-if Input == "/Die" then
-    game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Health = 0
-  end
-if Input == "/Health" then
-  if Value == "" then
-  warn("Value Its Empty Need A Value")
-    else
-    game.Players.LocalPlayer.Character.Humanoid.Health = Value
-  end
-  end
-if Input == "/MaxHealth" then
-  if Value == "" then
-  warn("Value Its Empty Need A Value")
-    else
-    game.Players.LocalPlayer.Character.Humanoid.MaxHealth = Value
-  end
-  end
+local Guis = {}
+function Guis.Trollface()
+local lp = game:FindService("Players").LocalPlayer
+local function gplr(String)
+	local Found = {}
+	local strl = String:lower()
+	if strl == "all" then
+		for i,v in pairs(game:FindService("Players"):GetPlayers()) do
+			table.insert(Found,v)
+		end
+	elseif strl == "others" then
+		for i,v in pairs(game:FindService("Players"):GetPlayers()) do
+			if v.Name ~= lp.Name then
+				table.insert(Found,v)
+			end
+		end 
+	elseif strl == "me" then
+		for i,v in pairs(game:FindService("Players"):GetPlayers()) do
+			if v.Name == lp.Name then
+				table.insert(Found,v)
+			end
+		end 
+	else
+		for i,v in pairs(game:FindService("Players"):GetPlayers()) do
+			if v.Name:lower():sub(1, #String) == String:lower() then
+				table.insert(Found,v)
+			end
+		end 
+	end
+	return Found 
+end
+
+local function notif(str,dur)
+	game:FindService("StarterGui"):SetCore("SendNotification", {
+		Title = "yeet gui Spectricium UI",
+		Text = str,
+		Icon = "rbxassetid://2005276185",
+		Duration = dur or 3
+	})
+end
+
+--// sds
+
+local h = Instance.new("ScreenGui")
+local Main = Instance.new("ImageLabel")
+local Top = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local TextBox = Instance.new("TextBox")
+local TextButton = Instance.new("TextButton")
+
+h.Name = "h"
+h.Parent = game:GetService("CoreGui")
+h.ResetOnSpawn = false
+
+Main.Name = "Main"
+Main.Parent = h
+Main.Active = true
+Main.Draggable = true
+Main.BackgroundColor3 = Color3.fromRGB(255, 102, 0)
+Main.BorderSizePixel = 0
+Main.Position = UDim2.new(0.174545452, 0, 0.459574461, 0)
+Main.Size = UDim2.new(0, 454, 0, 218)
+Main.Image = "rbxassetid://2005276185"
+
+Top.Name = "Top"
+Top.Parent = Main
+Top.BackgroundColor3 = Color3.fromRGB(255, 102, 0)
+Top.BorderSizePixel = 0
+Top.Size = UDim2.new(0, 454, 0, 44)
+
+Title.Name = "Title"
+Title.Parent = Top
+Title.BackgroundColor3 = Color3.fromRGB(49, 49, 49)
+Title.BorderSizePixel = 0
+Title.Position = UDim2.new(0, 0, 0.295454562, 0)
+Title.Size = UDim2.new(0, 454, 0, 30)
+Title.Font = Enum.Font.SourceSans
+Title.Text = "FE Yeet Gui (trollface edition) Spectracium Infinite UI"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextScaled = true
+Title.TextSize = 14.000
+Title.TextWrapped = true
+
+TextBox.Parent = Main
+TextBox.BackgroundColor3 = Color3.fromRGB(255, 102, 0)
+TextBox.BorderSizePixel = 0
+TextBox.Position = UDim2.new(0.0704845786, 0, 0.270642221, 0)
+TextBox.Size = UDim2.new(0, 388, 0, 62)
+TextBox.Font = Enum.Font.SourceSans
+TextBox.PlaceholderText = "Who do i destroy(can be shortened, Trolled)"
+TextBox.Text = ""
+TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.TextScaled = true
+TextBox.TextSize = 14.000
+TextBox.TextWrapped = true
+
+TextButton.Parent = Main
+TextButton.BackgroundColor3 = Color3.fromRGB(255, 102, 0)
+TextButton.BorderSizePixel = 0
+TextButton.Position = UDim2.new(0.10352423, 0, 0.596330225, 0)
+TextButton.Size = UDim2.new(0, 359, 0, 50)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.Text = "Troll"
+TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.TextScaled = true
+TextButton.TextSize = 14.000
+TextButton.TextWrapped = true
+
+TextButton.MouseButton1Click:Connect(function()
+	local Target = gplr(TextBox.Text)
+	if Target[1] then
+		Target = Target[1]
+		
+		local Thrust = Instance.new('BodyThrust', lp.Character.HumanoidRootPart)
+		Thrust.Force = Vector3.new(9999,9999,9999)
+		Thrust.Name = "YeetForce"
+		repeat
+			lp.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+			Thrust.Location = Target.Character.HumanoidRootPart.Position
+			game:FindService("RunService").Heartbeat:wait()
+		until not Target.Character:FindFirstChild("Head")
+	else
+		notif("Invalid player Spectricium UI")
+		h:Destroy()
+	end
+end)
+end
+
+
+
+local Hacks = {}
+function Hacks.Noclip()
+local noclipplayer = game:GetService("Players").LocalPlayer
+	local noclipmouse = noclipplayer:GetMouse()
+	
+	local donoclip = false
+	local noclip = false
+	
+	function b_noclip(key)
+		if (key == "b") then
+			if noclip == false then
+				donoclip = true
+				
+				noclip = true
+			elseif noclip == true then
+				donoclip = false
+				
+				noclip = false
+			end
+		end
+	end
+	
+	noclipmouse.KeyDown:connect(b_noclip)
+	
+	game:GetService("Players").LocalPlayer.Character.Head.Touched:connect(function(obj)
+		if obj ~= workspace.Terrain then
+			if donoclip == true then
+				obj.CanCollide = false
+                notif("On")
+			else
+				obj.CanCollide = true
+                notif("Off")
+			end
+		end
+	end)
+end
+local Command = {}
+function Command.Execute(cmd, value)
+if cmd == "/Speed" then
+Character:FindFirstChild("Humanoid").WalkSpeed = value
+elseif cmd == "/Jump" then
+Character:FindFirstChild("Humanoid").JumpPower = value
+elseif cmd == "/Reset" then
+Character:FindFirstChild("Humanoid").Health = 0
+elseif cmd == "/Noclip" then
+Hacks.Noclip()
+notif("Turn ON/OFF WITH B")
+elseif cmd == "/Troll" then
+Guis.Trollface()
+notif("Loaded!")
+else
+warn("No Command Found")
+end
+Value = ""
+Input = ""
 end
